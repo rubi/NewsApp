@@ -1,0 +1,26 @@
+{
+  "name": "NewsApp",
+  "version": "1.0.0",
+  "private": true,
+  "description": "news issue",
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "react": "^15.1.0",
+    "react-dom": "^0.14.7",
+    "react-native": "^0.27.1",
+    "react-native-paged-scroll-view": "^2.0.4",
+    "react-native-scrollable-tab-view": "^0.4.4",
+    "react-native-vector-icons": "^2.0.3",
+    "react-redux": "^4.2.1",
+    "redux": "^3.2.1",
+    "redux-thunk": "^2.1.0"
+  },
+  "keywords": [
+    "news"
+  ],
+  "author": "Seven",
+  "license": "ISC"
+}
