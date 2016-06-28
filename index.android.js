@@ -1,4 +1,10 @@
-import { AppRegistry, } from 'react-native';
-import NewsApp from './NewsApp';
+import React, { Component } from 'react'
+import {
+    AppRegistry,
+    StyleSheet,
+    Text,
+    View
+} from 'react-native'
+import App from './containers/App'
 
-AppRegistry.registerComponent('NewsApp', () => NewsApp);
+AppRegistry.registerComponent('NewsApp', () => App);
