@@ -1,8 +1,7 @@
 import React, { Component, } from 'react'
 import NavMenu from '../navMenu/components/NavMenu'
 import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux'
-import * as NavMenuAction from '../navMenu/actions';
+import  customBindActionCreators from '../global/Actions'
 import {
     StyleSheet,
     Text,
@@ -11,22 +10,23 @@ import {
 
 class Structure extends Component{
     render(){
-        const {navMenuState, } = this.props;
+        const {navMenuState, tabsRelatedListState, actions} = this.props;
         return (
-            <NavMenu menuTabs={navMenuState}/>
+            <NavMenu navMenuTabs={navMenuState} navListView={tabsRelatedListState} actions={actions}/>
         );
     }
 };
 
 function mapStateToProps(state){
     return {
-        navMenuState: state.navMenuState
+        navMenuState: state.navMenuState,
+        tabsRelatedListState: state.tabsRelatedListState
     }
 }
 
 function mapActionsToProps(dispatch){
     return {
-        actions: bindActionCreators(NavMenuAction, dispatch)
+        actions: customBindActionCreators(dispatch)
     }
 }
 export default connect(mapStateToProps, mapActionsToProps)(Structure);

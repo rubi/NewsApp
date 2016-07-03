@@ -1,0 +1,29 @@
+{
+  "status": 200,
+  "items": [
+    {
+      "title": "Tab 5 Is modern front-end overcomplicated?",
+      "content": "Millions of packages, new frameworks built every day, huge (re)learning curve, browsers crashes more, huge mobile network bandwith"
+    },
+    {
+      "title": "Tab 5 facebook react redux",
+      "content": "browsers crashes more, huge mobile network bandwith"
+    },
+    {
+      "title": "Tab 5 Angularjs template",
+      "content": "Millions of package ( huge mobile network bandwith"
+    },
+    {
+      "title": "Tab 5 Front-end",
+      "content": " the responsibilities of a Frontend developer change "
+    },
+    {
+      "title": "Tab 5 I am a backend developer",
+      "content": "huge (re)learning curve, browsers crashes more, huge mobile network bandwith"
+    },
+    {
+      "title": "Tab 5 Everyday a new javascript framework",
+      "content": "The only way for javascript to overcome this situation is to be renovated completely to support"
+    }
+  ]
+}

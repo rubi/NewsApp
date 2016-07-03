@@ -1,0 +1,43 @@
+{
+  "name": "seven",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "ejs": "^2.4.1",
+    "errorhandler": "^1.4.3",
+    "express": "^4.13.4",
+    "express-jwt": "^3.4.0",
+    "express-session": "^1.13.0",
+    "jade": "^1.11.0",
+    "jsonwebtoken": "^6.2.0",
+    "method-override": "^2.3.5",
+    "morgan": "^1.7.0",
+    "multer": "^1.1.0",
+    "mysql": "git://github.com/felixge/node-mysql.git",
+    "redis": "^2.6.0-2",
+    "serve-favicon": "^2.3.0",
+    "serve-static": "^1.10.2",
+    "when": "^3.7.7",
+    "grunt": "~0.4.4",
+    "grunt-cli": "*",
+    "matchdep": "0.2.0",
+    "grunt-contrib-uglify": "0.9.1",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-watch": "0.6.1",
+    "grunt-contrib-less": "0.12.0",
+    "grunt-requirejs": "*",
+    "grunt-contrib-cssmin": "^0.12.3",
+    "grunt-include-replace": "^3.2.0"
+  },
+  "devDependencies": {
+    "grunt-angular-templates": "^1.0.3"
+  }
+}
