@@ -18,7 +18,7 @@ export function fetchLists(url){
         return fetch(url)
             .then(response => response.json())
             .then(json =>{
-                    return dispatch(receiveListPost(json));
+                    return json;
             });
     }
 }

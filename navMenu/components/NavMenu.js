@@ -8,33 +8,67 @@ import {
     ScrollView,
 } from 'react-native'
 
+
 export default class NavMenuReduce extends Component{
     constructor(props, context){
         super();
-        this.state = {
-            currentPage: 0
-        };
+    }
+    componentWillMount(){
+        //debugger;
+        this.setState({
+            navListView: {
+                isFetching: true,
+                items: []
+            }
+        });
+    }
+    componentDidMount(){
+        //debugger;
+    }
+    componentWillUpdate(nextProps, nextState){
+        //debugger;
+    }
+    shouldComponentUpdate(nextProps, nextState){
+        return true;
+    }
+    componentWillReceiveProps(nextProps, nextState){
+        //debugger;
     }
     changeTab(currentPage){
-        return currentPage;
+        const me = this;
+        const {actions} = this.props;
+        const url = `http://192.168.1.105:3000/api/newsTabList${currentPage.i+1}`;
+        actions.fetchLists(url).then(data=>{
+            me.state.navListView = {};
+            me.setState({
+                navListView: {
+                    isFetching: false,
+                    items: data.items
+                }
+            });
+            /*this.setState({
+                navListView: {
+                    isFetching: false,
+                    items: data.items
+                }
+            });*/
+        });
     }
     render(){
-        const {actions, navListView} = this.props;
         const me = this;
+        const {actions} = this.props;
         const tabsList = this.props.navMenuTabs.navMenuTabsState.map((menu, key) => {
-                /*<Text tabLabel={menu.name} key={key}>{menu.content}</Text>*/
-            let url = `http://192.168.1.105:3000/api/newsTabList${key+1}`;
             return (
                 <ScrollView tabLabel={menu.name} key={key} style={styles.scrollViewWrap}>
                     <View style={styles.navListViewWrap}>
-                        <NavListView  currentPage={this.state.currentPage} activeTab={this.props.activeTab} {...actions} tabPage={key} fetchUrl={url} navListView={navListView}/>
+                        <NavListView navListView={me.state.navListView}/>
                     </View>
                 </ScrollView>
             )
         });
         return <ScrollableTabView
             style={{marginTop: 20, }}
-            initialPage={this.state.currentPage}
+            initialPage={0}
             renderTabBar={() => <ScrollableTabBar />}
             ref={(scrollableTabView) => { this._scrollableTabView = scrollableTabView; }}
             onChangeTab={this.changeTab.bind(this)}>

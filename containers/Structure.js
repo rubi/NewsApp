@@ -12,7 +12,7 @@ class Structure extends Component{
     render(){
         const {navMenuState, tabsRelatedListState, actions} = this.props;
         return (
-            <NavMenu navMenuTabs={navMenuState} navListView={tabsRelatedListState} actions={actions}/>
+            <NavMenu navMenuTabs={navMenuState} navListView={tabsRelatedListState} actions={actions} hello={1}/>
         );
     }
 };

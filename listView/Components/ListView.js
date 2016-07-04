@@ -16,24 +16,29 @@ export default class NavListView extends Component{
         //this.store = props.store || context.store
     }
     componentWillMount(){
+        this.setState({
+            navListView: this.props.navListView
+        });
         this.setState({'dataSource': this.ds.cloneWithRows([])});
     }
-    componentDidMount(){
-        const {fetchLists, receiveListPost, fetchUrl, tabPage} = this.props;
-        function getProps(action){
-            const{ navListView } = this.props;
-            navListView.isFetching = false;
-            this.setState({'dataSource': this.ds.cloneWithRows(navListView.items)});
-        }
-        /*if(this.props.scrollableTabView.state.currentPage === tabPage){
-            fetchLists(fetchUrl).then(getProps.bind(this));
-        }*/
-        fetchLists(fetchUrl).then(getProps.bind(this));
+    shouldComponentUpdate(nextProps, nextState){
+        debugger;
+        return this.props.navListView.isFetching !== nextProps.navListView.isFetching;
+    }
+    componentWillReceiveProps(nextProps, nextState){
+        debugger;
+        this.state.navListView = nextProps.navListView;
+        this.setState({'dataSource': this.ds.cloneWithRows(this.state.navListView.items)});
+    }
+    componentWillUpdate(nextProps, nextState){
+        debugger;
+        //this.setState({'dataSource': this.ds.cloneWithRows([this.state.navListView.items])});
     }
     showToast(title){
         ToastAndroid.show(title, ToastAndroid.SHORT);
     }
     renderRow(item){
+        debugger;
         return (
             <TouchableOpacity
                 style={styles.touchableButton}
@@ -52,8 +57,8 @@ export default class NavListView extends Component{
         )
     }
     render(){
-        const {navListView, } = this.props;
-        if(navListView.isFetching){
+        debugger;
+        if(this.state.navListView.isFetching){
             return (
                 <View>
                     <Text>Loading...</Text>
