@@ -14,63 +14,39 @@ export default class NavMenuReduce extends Component{
         super();
     }
     componentWillMount(){
-        //debugger;
-        this.setState({
-            navListView: {
-                isFetching: true,
-                items: []
-            }
-        });
+        this.setState({currentPage: -1});
     }
     componentDidMount(){
-        //debugger;
-    }
-    componentWillUpdate(nextProps, nextState){
-        //debugger;
+        //first 1
+        this.setState({currentPage: 0});
     }
     shouldComponentUpdate(nextProps, nextState){
-        return true;
-    }
-    componentWillReceiveProps(nextProps, nextState){
-        //debugger;
+        //first 3
+        return this.state.currentPage !== nextState.currentPage;
     }
     changeTab(currentPage){
-        const me = this;
-        const {actions} = this.props;
-        const url = `http://192.168.1.105:3000/api/newsTabList${currentPage.i+1}`;
-        actions.fetchLists(url).then(data=>{
-            me.state.navListView = {};
-            me.setState({
-                navListView: {
-                    isFetching: false,
-                    items: data.items
-                }
-            });
-            /*this.setState({
-                navListView: {
-                    isFetching: false,
-                    items: data.items
-                }
-            });*/
-        });
+        const { actions, } = this.props;
+        const NAV_LIST_VIEW = `navListView${currentPage.i}`;
+        this[NAV_LIST_VIEW].listenerChangeTab();
     }
     render(){
-        const me = this;
-        const {actions} = this.props;
-        const tabsList = this.props.navMenuTabs.navMenuTabsState.map((menu, key) => {
+        const { actions, } = this.props;
+        const filter = function(menu, key){
+            let NAV_LIST_VIEW = `navListView${key}`;
             return (
                 <ScrollView tabLabel={menu.name} key={key} style={styles.scrollViewWrap}>
                     <View style={styles.navListViewWrap}>
-                        <NavListView navListView={me.state.navListView}/>
+                        <NavListView url={menu.tabRelatedContentUrl} {...actions} ref={(navListView)=>this[NAV_LIST_VIEW] = navListView}/>
                     </View>
                 </ScrollView>
             )
-        });
+        };
+        const tabsList = this.props.navMenuTabs.navMenuTabsState.map(filter.bind(this));
         return <ScrollableTabView
             style={{marginTop: 20, }}
-            initialPage={0}
+            initialPage={this.state.currentPage}
+            page={this.state.currentPage}
             renderTabBar={() => <ScrollableTabBar />}
-            ref={(scrollableTabView) => { this._scrollableTabView = scrollableTabView; }}
             onChangeTab={this.changeTab.bind(this)}>
             {tabsList}
         </ScrollableTabView>;

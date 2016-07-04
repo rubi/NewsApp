@@ -7,7 +7,8 @@ import {
     StyleSheet,
     TouchableOpacity,
     ToastAndroid,
-} from 'react-native'
+    RefreshControl,
+} from 'react-native';
 
 export default class NavListView extends Component{
     constructor(props, context) {
@@ -15,30 +16,55 @@ export default class NavListView extends Component{
         this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
         //this.store = props.store || context.store
     }
+    listenerChangeTab(){
+        this.fetchLists();
+    }
+    fetchLists(){
+        const {fetchLists, url} = this.props;
+        const success = function(data){
+            this.setState({
+                navListView: {
+                    isFetching: false,
+                    items: data.items
+                }
+            });
+            this.setState({'dataSource': this.ds.cloneWithRows(this.state.navListView.items)});
+        }
+        fetchLists(url).then(success.bind(this));
+    }
     componentWillMount(){
+        //first 1
         this.setState({
-            navListView: this.props.navListView
+            navListView: {
+                isFetching: true,
+                items: []
+            }
         });
         this.setState({'dataSource': this.ds.cloneWithRows([])});
     }
     shouldComponentUpdate(nextProps, nextState){
-        debugger;
-        return this.props.navListView.isFetching !== nextProps.navListView.isFetching;
+        //first 3
+        return this.state.dataSource !== nextState.dataSource;
     }
     componentWillReceiveProps(nextProps, nextState){
-        debugger;
-        this.state.navListView = nextProps.navListView;
-        this.setState({'dataSource': this.ds.cloneWithRows(this.state.navListView.items)});
+        //first 2
     }
     componentWillUpdate(nextProps, nextState){
-        debugger;
-        //this.setState({'dataSource': this.ds.cloneWithRows([this.state.navListView.items])});
+        //first 4
     }
     showToast(title){
         ToastAndroid.show(title, ToastAndroid.SHORT);
     }
-    renderRow(item){
+    onRefresh(){
         debugger;
+        this.setState({
+            navListView: {
+                isFetching: true
+            }
+        });
+        this.fetchLists();
+    }
+    renderRow(item){
         return (
             <TouchableOpacity
                 style={styles.touchableButton}
@@ -46,7 +72,7 @@ export default class NavListView extends Component{
             >
                 <View style={styles.listRow}>
                     <View style={styles.conLeft}>
-                        <Text>Title</Text>
+                        <Text style={styles.confLeftTitle}>Title</Text>
                     </View>
                     <View style={styles.conRight}>
                         <Text style={styles.title}>{item.title}</Text>
@@ -57,12 +83,9 @@ export default class NavListView extends Component{
         )
     }
     render(){
-        debugger;
         if(this.state.navListView.isFetching){
             return (
-                <View>
-                    <Text>Loading...</Text>
-                </View>
+                <Text>Loading...</Text>
             )
         }else{
             return (
@@ -74,6 +97,14 @@ export default class NavListView extends Component{
                             dataSource={this.state.dataSource}
                             renderRow={this.renderRow.bind(this)}
                             style={styles.listView}
+                            refreshControl={
+                            <RefreshControl
+                                refreshing={this.state.navListView.isFetching}
+                                onRefresh={this.onRefresh.bind(this)}
+                                tintColor="#ff0000"
+                                  colors={['#ff0000', '#00ff00', '#0000ff']}
+                                  progressBackgroundColor="#ffff00"
+                            />}
                         />
                     </View>
                 </ScrollView>
@@ -104,8 +135,9 @@ const styles = StyleSheet.create({
     conLeft: {
         alignItems: 'center',
         justifyContent: 'center',
-        width: 50,
-        height: 50,
+    },
+    confLeftTitle: {
+
     },
     conRight: {
         paddingLeft: 20,
@@ -118,6 +150,9 @@ const styles = StyleSheet.create({
     },
     touchableButton: {
 
+    },
+    spinner: {
+        marginBottom: 50
     },
 })
 
