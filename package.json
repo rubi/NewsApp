@@ -15,6 +15,7 @@
     "react-native": "^0.27.1",
     "react-native-paged-scroll-view": "^2.0.4",
     "react-native-refreshable-listview": "^2.0.0-beta4",
+    "react-native-refresher": "^0.1.1",
     "react-native-scrollable-tab-view": "^0.4.4",
     "react-native-spinkit": "^0.1.2",
     "react-native-vector-icons": "^2.0.3",

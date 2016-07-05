@@ -9,7 +9,6 @@ import {
     ToastAndroid,
     RefreshControl,
 } from 'react-native';
-
 export default class NavListView extends Component{
     constructor(props, context) {
         super();
@@ -82,6 +81,24 @@ export default class NavListView extends Component{
             </TouchableOpacity>
         )
     }
+    onChangeVisibleRows(visibleRows, changedRows){
+        debugger;
+    }
+    onEndReached(){
+        debugger;
+    }
+    onEndReachedThreshold(number){
+        debugger;
+    }
+    renderHeader(){
+        return <Text>i am Header</Text>
+    }
+    renderFooter(){
+        return <Text>i am footer</Text>
+    }
+    scrollRenderAheadDistance(){
+        debugger;
+    }
     render(){
         if(this.state.navListView.isFetching){
             return (
@@ -92,19 +109,31 @@ export default class NavListView extends Component{
                 <ScrollView style={styles.listWrap}>
                     <View style={styles.listContent}>
                         <ListView
-                            //initialListSize={2}
+                            //initialListSize={6}
+                            pageSize={1}
                             enableEmptySections={true}
                             dataSource={this.state.dataSource}
                             renderRow={this.renderRow.bind(this)}
+                            onChangeVisibleRows={this.onChangeVisibleRows.bind(this)}
+                            onEndReached={this.onEndReached.bind(this)}
+                            //onEndReachedThreshold={this.onEndReachedThreshold.bind(this)}
+                            renderHeader={this.renderHeader.bind(this)}
+                            renderFooter={this.renderFooter.bind(this)}
+                            //scrollRenderAheadDistance={this.scrollRenderAheadDistance.bind(this)}
                             style={styles.listView}
                             refreshControl={
-                            <RefreshControl
-                                refreshing={this.state.navListView.isFetching}
-                                onRefresh={this.onRefresh.bind(this)}
-                                tintColor="#ff0000"
-                                  colors={['#ff0000', '#00ff00', '#0000ff']}
-                                  progressBackgroundColor="#ffff00"
-                            />}
+                                <RefreshControl
+                                    refreshing={this.state.navListView.isFetching}
+                                    onRefresh={this.onRefresh.bind(this)}
+                                    tintColor="#ff0000"
+                                    title="Loading..."
+                                    titleColor="#00ff00"
+                                    colors={['#ff0000', '#00ff00', '#0000ff']}
+                                    progressBackgroundColor="#ffff00"
+                                />
+                            }
+
+
                         />
                     </View>
                 </ScrollView>
